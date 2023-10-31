@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Paniutycz\Scoreboard\Test\Value;
 
+use Paniutycz\Scoreboard\Exception\InvalidTeamNameValueException;
 use Paniutycz\Scoreboard\Value\TeamName;
 use PHPUnit\Framework\TestCase;
 
