@@ -4,21 +4,21 @@ declare(strict_types=1);
 
 namespace Paniutycz\Scoreboard\Value;
 
-use Paniutycz\Scoreboard\Exception\InvalidScoreValueException;
+use Paniutycz\Scoreboard\Exception\InvalidTeamScoreValueException;
 
 readonly class TeamScore
 {
     private int $value;
 
     /**
-     * @throws InvalidScoreValueException
+     * @throws InvalidTeamScoreValueException
      */
     public function __construct(
         int $value,
     ) {
         echo $value;
         if ($value < 0 || $value > PHP_INT_MAX - 1) {
-            throw new InvalidScoreValueException($value);
+            throw new InvalidTeamScoreValueException($value);
         }
 
         $this->value = $value;

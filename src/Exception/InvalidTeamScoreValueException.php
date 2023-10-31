@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Paniutycz\Scoreboard\Exception;
 
-final class InvalidScoreValueException extends ScoreboardException
+final class InvalidTeamScoreValueException extends ScoreboardException
 {
     private const TEMPLATE = 'Invalid score value: %s.';
 
