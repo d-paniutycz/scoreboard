@@ -11,7 +11,9 @@ use Paniutycz\Scoreboard\Entity\GameCollection;
 use Paniutycz\Scoreboard\Exception\TeamAlreadyInGameException;
 use Paniutycz\Scoreboard\Model\ConcreteTeamFactory;
 use Paniutycz\Scoreboard\Scoreboard;
+use Paniutycz\Scoreboard\Test\GameFixture;
 use Paniutycz\Scoreboard\Value\TeamName;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 final class ScoreboardStartGameTest extends TestCase
@@ -61,13 +63,13 @@ final class ScoreboardStartGameTest extends TestCase
         self::assertEquals(0, $game->getAwayTeam()->getScore()->getValue());
     }
 
-    public function testGameCantBeStartedIfOneOfTeamIsInOtherGame(): void
+    #[DataProvider('teamNamesProvider')]
+    public function testGameCantBeStartedIfOneOfTeamIsInOtherGame(string $homeTeamName, string $awayTeamName): void
     {
         // arrange
-        $this->scoreboard->startGame(
-            new TeamName('home'),
-            new TeamName('away'),
-        );
+        $game = GameFixture::create(null, $homeTeamName, $awayTeamName);
+
+        $this->collection->set($game->getId(), $game);
 
         // assert
         self::expectException(TeamAlreadyInGameException::class);
@@ -77,5 +79,14 @@ final class ScoreboardStartGameTest extends TestCase
             new TeamName('home'),
             new TeamName('away'),
         );
+    }
+
+    public static function teamNamesProvider(): array
+    {
+        return [
+            ['home', 'away'],
+            ['homeA', 'away'],
+            ['home', 'awayA'],
+        ];
     }
 }
