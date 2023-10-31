@@ -14,9 +14,9 @@ use Paniutycz\Scoreboard\Value\TeamScore;
 final readonly class GameFixture
 {
     public static function create(
-        ?string $gameId,
-        string $homeTeamName,
-        string $awayTeamName,
+        ?string $gameId = null,
+        string $homeTeamName = 'home',
+        string $awayTeamName = 'away',
         int $homeTeamScore = 0,
         int $awayTeamScore = 0,
     ): Game {
