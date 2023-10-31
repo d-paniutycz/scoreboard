@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Paniutycz\Scoreboard\Test\Scoreboard;
 
+use Paniutycz\Scoreboard\Game;
+use Paniutycz\Scoreboard\GameCollection;
+use Paniutycz\Scoreboard\Scoreboard;
 use PHPUnit\Framework\TestCase;
-use function PHPUnit\Framework\assertEquals;
 
 final class ScoreboardStartGameTest extends TestCase
 {
@@ -34,7 +36,7 @@ final class ScoreboardStartGameTest extends TestCase
         $game = $scoreboard->startGame('home', 'away');
 
         // assert
-        assertEquals(0, $game->getHomeTeamScore());
-        assertEquals(0, $game->getAwayTeamScore());
+        self::assertEquals(0, $game->getHomeTeamScore());
+        self::assertEquals(0, $game->getAwayTeamScore());
     }
 }
