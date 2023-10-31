@@ -23,6 +23,11 @@ class ConcreteGameCollection implements GameCollection
         $this->collection[$gameId->getValue()] = $game;
     }
 
+    public function get(GameId $gameId): Game
+    {
+        return $this->collection[$gameId->getValue()];
+    }
+
     public function getIterator(): Traversable
     {
         return new ArrayIterator($this->collection);

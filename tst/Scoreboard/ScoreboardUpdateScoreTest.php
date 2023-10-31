@@ -47,19 +47,20 @@ final class ScoreboardUpdateScoreTest extends TestCase
         $game = $this->collection->get($game->getId());
 
         self::assertNotNull($game);
-        self::assertEquals(1, $game->getHomeTeam()->getScore->getValue());
-        self::assertEquals(2, $game->getAwayTeam()->getScore->getValue());
+        self::assertEquals(1, $game->getHomeTeam()->getScore()->getValue());
+        self::assertEquals(2, $game->getAwayTeam()->getScore()->getValue());
     }
 
     public function testGameScoreCantBeUpdatedIfGameNotFound(): void
     {
         // arrange
         $gameId = GameId::generate();
+        $teamScore = new TeamScore(1);
 
         // assert
         self::expectException(GameNotFoundException::class);
 
         // act
-        $this->scoreboard->updateScore($gameId);
+        $this->scoreboard->updateScore($gameId, $teamScore, $teamScore);
     }
 }

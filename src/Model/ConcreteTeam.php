@@ -7,10 +7,10 @@ namespace Paniutycz\Scoreboard\Model;
 use Paniutycz\Scoreboard\Value\TeamName;
 use Paniutycz\Scoreboard\Value\TeamScore;
 
-final readonly class ConcreteTeam implements Team
+final class ConcreteTeam implements Team
 {
     public function __construct(
-        private TeamName $name,
+        private readonly TeamName $name,
         private TeamScore $score,
     ) {
     }
@@ -18,6 +18,11 @@ final readonly class ConcreteTeam implements Team
     public function getName(): TeamName
     {
         return $this->name;
+    }
+
+    public function setScore(TeamScore $score): void
+    {
+        $this->score = $score;
     }
 
     public function getScore(): TeamScore

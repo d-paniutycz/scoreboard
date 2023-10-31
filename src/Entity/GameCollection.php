@@ -13,5 +13,7 @@ interface GameCollection extends IteratorAggregate
 
     public function set(GameId $gameId, Game $game): void;
 
+    public function get(GameId $gameId): Game;
+
     public function unset(GameId $gameId): void;
 }

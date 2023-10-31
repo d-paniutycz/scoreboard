@@ -46,7 +46,7 @@ final readonly class Scoreboard
 
         $this->gameCollection->set($gameId, $game);
 
-        return $game;
+        return clone $game;
     }
 
     /**
@@ -62,6 +62,9 @@ final readonly class Scoreboard
         }
     }
 
+    /**
+     * @throws GameNotFoundException
+     */
     public function finishGame(GameId $gameId): void
     {
         if (!$this->gameCollection->has($gameId)) {
@@ -69,5 +72,22 @@ final readonly class Scoreboard
         }
 
         $this->gameCollection->unset($gameId);
+    }
+
+    /**
+     * @throws GameNotFoundException
+     */
+    public function updateScore(GameId $gameId, TeamScore $homeTeamScore, TeamScore $awayTeamScore): Game
+    {
+        if (!$this->gameCollection->has($gameId)) {
+            throw new GameNotFoundException($gameId);
+        }
+
+        $game = $this->gameCollection->get($gameId);
+
+        $game->getHomeTeam()->setScore($homeTeamScore);
+        $game->getAwayTeam()->setScore($awayTeamScore);
+
+        return clone $game;
     }
 }
