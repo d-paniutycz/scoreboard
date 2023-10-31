@@ -16,7 +16,6 @@ readonly class TeamScore
     public function __construct(
         int $value,
     ) {
-        echo $value;
         if ($value < 0 || $value > PHP_INT_MAX - 1) {
             throw new InvalidTeamScoreValueException($value);
         }

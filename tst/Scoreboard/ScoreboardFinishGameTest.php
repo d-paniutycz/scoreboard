@@ -46,7 +46,7 @@ class ScoreboardFinishGameTest extends TestCase
         self::assertFalse($this->collection->has($gameId));
     }
 
-    public function testGameHaveExistToBeFinished(): void
+    public function testGameHaveToExistToBeFinished(): void
     {
         // arrange
         $gameId = GameId::generate();

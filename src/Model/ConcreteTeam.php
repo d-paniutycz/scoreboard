@@ -10,7 +10,7 @@ use Paniutycz\Scoreboard\Value\TeamScore;
 
 final class ConcreteTeam implements Team
 {
-    private ?DateTimeImmutable $lastUpdateTime;
+    private ?DateTimeImmutable $lastUpdateTime = null;
 
     private TeamScore $score;
 

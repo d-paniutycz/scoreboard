@@ -7,7 +7,7 @@ namespace Paniutycz\Scoreboard\Policy;
 use Paniutycz\Scoreboard\Entity\Game;
 use Paniutycz\Scoreboard\Entity\GameCollection;
 
-class GameFilterByTotalScorePolicy implements GameFilterPolicy
+final readonly class GameFilterByTotalScorePolicy implements GameFilterPolicy
 {
     public function filter(GameCollection $collection): array
     {
