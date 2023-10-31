@@ -90,4 +90,22 @@ final readonly class Scoreboard
 
         return clone $game;
     }
+
+    private function compareGames(Game $a, Game $b): int
+    {
+        if ($a->getTotalScore() == $b->getTotalScore()) {
+            return $b->getLastUpdateTime() <=> $a->getLastUpdateTime();
+        }
+
+        return $b->getTotalScore() <=> $a->getTotalScore();
+    }
+
+    public function getSummaryByTotalScore(): array
+    {
+        $games = iterator_to_array($this->gameCollection);
+
+        usort($games, [$this, 'compareGames']);
+
+        return $games;
+    }
 }

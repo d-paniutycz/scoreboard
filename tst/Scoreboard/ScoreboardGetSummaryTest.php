@@ -30,7 +30,7 @@ class ScoreboardGetSummaryTest extends TestCase
         );
     }
 
-    protected function testSummaryOfGamesByTotalScoreIsInCorrectOrder(): void
+    public function testSummaryOfGamesByTotalScoreIsInCorrectOrder(): void
     {
         // arrange
         $games = GameFixture::createFromArray([
@@ -49,12 +49,13 @@ class ScoreboardGetSummaryTest extends TestCase
         // act
         $gameList = $this->scoreboard->getSummaryByTotalScore();
 
+        $actualOrder = [];
+        foreach ($gameList as $game) {
+            $actualOrder[] = $game->getId()->getValue();
+        }
+
         // assert
         $expectedOrder = ['d', 'b', 'a', 'e', 'c'];
-        $i = 0;
-
-        foreach ($gameList as $game) {
-            self::assertEquals($game->getId()->getValue(), $expectedOrder[++$i]);
-        }
+        self::assertEquals($expectedOrder, $actualOrder);
     }
 }

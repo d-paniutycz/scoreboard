@@ -21,7 +21,7 @@ final readonly class GameFixture
         int $awayTeamScore = 0,
     ): Game {
         return new ConcreteGame(
-            $gameId ?? GameId::generate(),
+            is_null($gameId) ? GameId::generate() : new GameId($gameId),
             new ConcreteTeam(
                 new TeamName($homeTeamName),
                 new TeamScore($homeTeamScore),

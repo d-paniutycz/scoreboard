@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Paniutycz\Scoreboard\Entity;
 
+use DateTimeImmutable;
 use Paniutycz\Scoreboard\Exception\GameBetweenSameTeamException;
 use Paniutycz\Scoreboard\Model\Team;
 use Paniutycz\Scoreboard\Value\GameId;
@@ -36,6 +37,19 @@ final readonly class ConcreteGame implements Game
     public function getAwayTeam(): Team
     {
         return $this->awayTeam;
+    }
+
+    public function getTotalScore(): int
+    {
+        return $this->homeTeam->getScore()->getValue() + $this->awayTeam->getScore()->getValue();
+    }
+
+    public function getLastUpdateTime(): ?DateTimeImmutable
+    {
+        return max(
+            $this->homeTeam->getLastUpdateTime(),
+            $this->awayTeam->getLastUpdateTime()
+        );
     }
 
     public function isTeamInGame(Team $team): bool
