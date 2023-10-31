@@ -1,0 +1,21 @@
+{
+  "name": "d-paniutycz/scoreboard",
+  "type": "library",
+  "minimum-stability": "stable",
+  "autoload": {
+    "psr-4": {
+      "Paniutycz\\Scoreboard\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Paniutycz\\Scoreboard\\Test\\": "tst/"
+    }
+  },
+  "require": {
+    "php": ">=8.2"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^10.1"
+  }
+}
