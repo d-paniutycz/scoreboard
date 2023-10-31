@@ -89,4 +89,16 @@ final class ScoreboardStartGameTest extends TestCase
             ['home', 'awayA'],
         ];
     }
+
+    public function testGameCantBeStartedIfBetweenSameTeam(): void
+    {
+        // assert
+        self::expectException(GameBetweenSameTeamException::class);
+
+        // act
+        $this->scoreboard->startGame(
+            new TeamName('home'),
+            new TeamName('home'),
+        );
+    }
 }
