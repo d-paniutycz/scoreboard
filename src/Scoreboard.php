@@ -9,6 +9,7 @@ use Paniutycz\Scoreboard\Entity\GameCollection;
 use Paniutycz\Scoreboard\Entity\GameFactory;
 use Paniutycz\Scoreboard\Exception\GameAlreadyExistsException;
 use Paniutycz\Scoreboard\Exception\GameNotFoundException;
+use Paniutycz\Scoreboard\Exception\InvalidScoreValueException;
 use Paniutycz\Scoreboard\Exception\TeamAlreadyInGameException;
 use Paniutycz\Scoreboard\Model\Team;
 use Paniutycz\Scoreboard\Model\TeamFactory;
@@ -29,6 +30,7 @@ final readonly class Scoreboard
     /**
      * @throws GameAlreadyExistsException
      * @throws TeamAlreadyInGameException
+     * @throws InvalidScoreValueException
      */
     public function startGame(TeamName $homeTeamName, TeamName $awayTeamName): Game
     {
