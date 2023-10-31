@@ -8,9 +8,11 @@ use Paniutycz\Scoreboard\Entity\Game;
 use Paniutycz\Scoreboard\Entity\GameCollection;
 use Paniutycz\Scoreboard\Entity\GameFactory;
 use Paniutycz\Scoreboard\Exception\GameAlreadyExistsException;
+use Paniutycz\Scoreboard\Exception\GameNotFoundException;
 use Paniutycz\Scoreboard\Exception\TeamAlreadyInGameException;
 use Paniutycz\Scoreboard\Model\Team;
 use Paniutycz\Scoreboard\Model\TeamFactory;
+use Paniutycz\Scoreboard\Value\GameId;
 use Paniutycz\Scoreboard\Value\TeamName;
 use Paniutycz\Scoreboard\Value\TeamScore;
 
@@ -58,5 +60,14 @@ final readonly class Scoreboard
                 throw new TeamAlreadyInGameException($team->getName(), $game->getId());
             }
         }
+    }
+
+    public function finishGame(GameId $gameId): void
+    {
+        if (!$this->gameCollection->has($gameId)) {
+            throw new GameNotFoundException($gameId);
+        }
+
+        $this->gameCollection->unset($gameId);
     }
 }

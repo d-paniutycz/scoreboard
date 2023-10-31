@@ -7,6 +7,7 @@ namespace Paniutycz\Scoreboard\Test\Scoreboard;
 use Paniutycz\Scoreboard\Entity\ConcreteGameCollection;
 use Paniutycz\Scoreboard\Entity\ConcreteGameFactory;
 use Paniutycz\Scoreboard\Entity\GameCollection;
+use Paniutycz\Scoreboard\Exception\GameNotFoundException;
 use Paniutycz\Scoreboard\Model\ConcreteTeamFactory;
 use Paniutycz\Scoreboard\Scoreboard;
 use Paniutycz\Scoreboard\Test\GameFixture;

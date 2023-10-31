@@ -27,4 +27,9 @@ class ConcreteGameCollection implements GameCollection
     {
         return new ArrayIterator($this->collection);
     }
+
+    public function unset(GameId $gameId): void
+    {
+        unset($this->collection[$gameId->getValue()]);
+    }
 }
