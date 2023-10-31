@@ -8,6 +8,8 @@ use Paniutycz\Scoreboard\Entity\Game;
 use Paniutycz\Scoreboard\Entity\GameCollection;
 use Paniutycz\Scoreboard\Entity\GameFactory;
 use Paniutycz\Scoreboard\Exception\GameAlreadyExistsException;
+use Paniutycz\Scoreboard\Exception\TeamAlreadyInGameException;
+use Paniutycz\Scoreboard\Model\Team;
 use Paniutycz\Scoreboard\Model\TeamFactory;
 use Paniutycz\Scoreboard\Value\TeamName;
 use Paniutycz\Scoreboard\Value\TeamScore;
@@ -23,11 +25,15 @@ final readonly class Scoreboard
 
     /**
      * @throws GameAlreadyExistsException
+     * @throws TeamAlreadyInGameException
      */
     public function startGame(TeamName $homeTeamName, TeamName $awayTeamName): Game
     {
         $homeTeam = $this->teamFactory->create($homeTeamName, new TeamScore(0));
+        $this->assertTeamNotInOtherGame($homeTeam);
+
         $awayTeam = $this->teamFactory->create($awayTeamName, new TeamScore(0));
+        $this->assertTeamNotInOtherGame($awayTeam);
 
         $game = $this->gameFactory->create($homeTeam, $awayTeam);
 
@@ -39,5 +45,18 @@ final readonly class Scoreboard
         $this->gameCollection->set($gameId, $game);
 
         return $game;
+    }
+
+    /**
+     * @throws TeamAlreadyInGameException
+     */
+    private function assertTeamNotInOtherGame(Team $team): void
+    {
+        /** @var Game $game */
+        foreach ($this->gameCollection as $game) {
+            if ($game->isTeamInGame($team)) {
+                throw new TeamAlreadyInGameException($team->getName(), $game->getId());
+            }
+        }
     }
 }

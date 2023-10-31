@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Paniutycz\Scoreboard\Entity;
 
+use ArrayIterator;
 use Paniutycz\Scoreboard\Value\GameId;
+use Traversable;
 
 class ConcreteGameCollection implements GameCollection
 {
@@ -19,5 +21,10 @@ class ConcreteGameCollection implements GameCollection
     public function set(GameId $gameId, Game $game): void
     {
         $this->collection[$gameId->getValue()] = $game;
+    }
+
+    public function getIterator(): Traversable
+    {
+        return new ArrayIterator($this->collection);
     }
 }

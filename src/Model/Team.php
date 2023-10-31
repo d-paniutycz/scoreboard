@@ -12,4 +12,6 @@ interface Team
     public function getName(): TeamName;
 
     public function getScore(): TeamScore;
+
+    public function equals(Team $team): bool;
 }

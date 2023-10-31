@@ -30,4 +30,9 @@ final readonly class ConcreteGame implements Game
     {
         return $this->awayTeam;
     }
+
+    public function isTeamInGame(Team $team): bool
+    {
+        return $team->equals($this->homeTeam) || $team->equals($this->awayTeam);
+    }
 }

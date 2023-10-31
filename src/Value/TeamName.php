@@ -15,4 +15,9 @@ readonly class TeamName
     {
         return $this->value;
     }
+
+    public function equals(TeamName $name): bool
+    {
+        return $name->getValue() === $this->value;
+    }
 }

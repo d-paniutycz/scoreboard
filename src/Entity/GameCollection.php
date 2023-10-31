@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Paniutycz\Scoreboard\Entity;
 
+use IteratorAggregate;
 use Paniutycz\Scoreboard\Value\GameId;
 
-interface GameCollection
+interface GameCollection extends IteratorAggregate
 {
     public function has(GameId $gameId): bool;
 

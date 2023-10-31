@@ -14,4 +14,6 @@ interface Game
     public function getHomeTeam(): Team;
 
     public function getAwayTeam(): Team;
+
+    public function isTeamInGame(Team $team): bool;
 }

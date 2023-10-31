@@ -8,6 +8,7 @@ use Paniutycz\Scoreboard\Entity\ConcreteGameCollection;
 use Paniutycz\Scoreboard\Entity\ConcreteGameFactory;
 use Paniutycz\Scoreboard\Entity\Game;
 use Paniutycz\Scoreboard\Entity\GameCollection;
+use Paniutycz\Scoreboard\Exception\TeamAlreadyInGameException;
 use Paniutycz\Scoreboard\Model\ConcreteTeamFactory;
 use Paniutycz\Scoreboard\Scoreboard;
 use Paniutycz\Scoreboard\Value\TeamName;

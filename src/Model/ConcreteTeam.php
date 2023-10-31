@@ -24,4 +24,9 @@ final readonly class ConcreteTeam implements Team
     {
         return $this->score;
     }
+
+    public function equals(Team $team): bool
+    {
+        return $team->getName()->equals($this->name);
+    }
 }
