@@ -59,4 +59,22 @@ final class ScoreboardStartGameTest extends TestCase
         self::assertEquals(0, $game->getHomeTeam()->getScore()->getValue());
         self::assertEquals(0, $game->getAwayTeam()->getScore()->getValue());
     }
+
+    public function testGameCantBeStartedIfOneOfTeamIsInOtherGame(): void
+    {
+        // arrange
+        $this->scoreboard->startGame(
+            new TeamName('home'),
+            new TeamName('away'),
+        );
+
+        // assert
+        self::expectException(TeamAlreadyInGameException::class);
+
+        // act
+        $this->scoreboard->startGame(
+            new TeamName('home'),
+            new TeamName('away'),
+        );
+    }
 }
