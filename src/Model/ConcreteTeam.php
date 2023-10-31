@@ -10,13 +10,15 @@ use Paniutycz\Scoreboard\Value\TeamScore;
 
 final class ConcreteTeam implements Team
 {
-    private DateTimeImmutable $lastUpdateTime;
+    private ?DateTimeImmutable $lastUpdateTime;
+
+    private TeamScore $score;
 
     public function __construct(
         private readonly TeamName $name,
-        private TeamScore $score,
+        TeamScore $score,
     ) {
-        $this->lastUpdateTime = new DateTimeImmutable();
+        $this->setScore($score);
     }
 
     public function getName(): TeamName

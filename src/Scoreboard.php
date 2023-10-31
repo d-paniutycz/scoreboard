@@ -12,6 +12,7 @@ use Paniutycz\Scoreboard\Exception\GameNotFoundException;
 use Paniutycz\Scoreboard\Exception\TeamAlreadyInGameException;
 use Paniutycz\Scoreboard\Model\Team;
 use Paniutycz\Scoreboard\Model\TeamFactory;
+use Paniutycz\Scoreboard\Policy\GameFilterPolicy;
 use Paniutycz\Scoreboard\Value\GameId;
 use Paniutycz\Scoreboard\Value\TeamName;
 use Paniutycz\Scoreboard\Value\TeamScore;
@@ -46,7 +47,7 @@ final readonly class Scoreboard
 
         $this->gameCollection->set($gameId, $game);
 
-        return clone $game;
+        return $game;
     }
 
     /**
@@ -88,24 +89,14 @@ final readonly class Scoreboard
         $game->getHomeTeam()->setScore($homeTeamScore);
         $game->getAwayTeam()->setScore($awayTeamScore);
 
-        return clone $game;
+        return $game;
     }
 
-    private function compareGames(Game $a, Game $b): int
+    /**
+     * @return array<Game>
+     */
+    public function getSummary(GameFilterPolicy $policy): array
     {
-        if ($a->getTotalScore() == $b->getTotalScore()) {
-            return $b->getLastUpdateTime() <=> $a->getLastUpdateTime();
-        }
-
-        return $b->getTotalScore() <=> $a->getTotalScore();
-    }
-
-    public function getSummaryByTotalScore(): array
-    {
-        $games = iterator_to_array($this->gameCollection);
-
-        usort($games, [$this, 'compareGames']);
-
-        return $games;
+        return $policy->filter($this->gameCollection);
     }
 }

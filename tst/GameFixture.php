@@ -33,13 +33,15 @@ final readonly class GameFixture
         );
     }
 
+    /**
+     * @return array<Game>
+     */
     public static function createFromArray(array $gameDataList): array
     {
-        $games = [];
         foreach ($gameDataList as $gameData) {
             $games[] = GameFixture::create(...$gameData);
         }
 
-        return $games;
+        return $games ?? [];
     }
 }

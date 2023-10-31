@@ -48,7 +48,7 @@ final readonly class ConcreteGame implements Game
     {
         return max(
             $this->homeTeam->getLastUpdateTime(),
-            $this->awayTeam->getLastUpdateTime()
+            $this->awayTeam->getLastUpdateTime(),
         );
     }
 

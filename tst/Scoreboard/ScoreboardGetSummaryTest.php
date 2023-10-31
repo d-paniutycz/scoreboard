@@ -6,9 +6,9 @@ namespace Paniutycz\Scoreboard\Test\Scoreboard;
 
 use Paniutycz\Scoreboard\Entity\ConcreteGameCollection;
 use Paniutycz\Scoreboard\Entity\ConcreteGameFactory;
-use Paniutycz\Scoreboard\Entity\Game;
 use Paniutycz\Scoreboard\Entity\GameCollection;
 use Paniutycz\Scoreboard\Model\ConcreteTeamFactory;
+use Paniutycz\Scoreboard\Policy\GameFilterByTotalScorePolicy;
 use Paniutycz\Scoreboard\Scoreboard;
 use Paniutycz\Scoreboard\Test\GameFixture;
 use PHPUnit\Framework\TestCase;
@@ -34,28 +34,26 @@ class ScoreboardGetSummaryTest extends TestCase
     {
         // arrange
         $games = GameFixture::createFromArray([
-            ['a', 'Mexico', 'Canada', 0, 5],
-            ['b', 'Spain', 'Brazil', 10, 2],
-            ['c', 'Germany', 'France', 2, 2],
-            ['d', 'Uruguay', 'Italy', 6, 6],
-            ['e', 'Argentina', 'Australia', 3, 1],
+            ['3', 'Mexico', 'Canada', 0, 5],
+            ['2', 'Spain', 'Brazil', 10, 2],
+            ['5', 'Germany', 'France', 2, 2],
+            ['1', 'Uruguay', 'Italy', 6, 6],
+            ['4', 'Argentina', 'Australia', 3, 1],
         ]);
 
-        /** @var Game $game */
         foreach ($games as $game) {
             $this->collection->set($game->getId(), $game);
         }
 
         // act
-        $gameList = $this->scoreboard->getSummaryByTotalScore();
-
-        $actualOrder = [];
-        foreach ($gameList as $game) {
-            $actualOrder[] = $game->getId()->getValue();
-        }
+        $games = $this->scoreboard->getSummary(
+            new GameFilterByTotalScorePolicy()
+        );
 
         // assert
-        $expectedOrder = ['d', 'b', 'a', 'e', 'c'];
-        self::assertEquals($expectedOrder, $actualOrder);
+        $i = 1;
+        foreach ($games as $game) {
+            self::assertEquals($game->getId()->getValue(), $i++);
+        }
     }
 }
