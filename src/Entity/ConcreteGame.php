@@ -4,16 +4,23 @@ declare(strict_types=1);
 
 namespace Paniutycz\Scoreboard\Entity;
 
+use Paniutycz\Scoreboard\Exception\GameBetweenSameTeamException;
 use Paniutycz\Scoreboard\Model\Team;
 use Paniutycz\Scoreboard\Value\GameId;
 
 final readonly class ConcreteGame implements Game
 {
+    /**
+     * @throws GameBetweenSameTeamException
+     */
     public function __construct(
         private GameId $id,
         private Team $homeTeam,
         private Team $awayTeam,
     ) {
+        if ($this->homeTeam->equals($this->awayTeam)) {
+            throw new GameBetweenSameTeamException($this->homeTeam->getName());
+        }
     }
 
     public function getId(): GameId
